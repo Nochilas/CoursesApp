@@ -1,0 +1,39 @@
+﻿@page "/"
+@using Data
+
+<h3>Courses</h3>
+
+@if(!string.IsNullOrEmpty(LikedCourseID))
+{
+	<p>It seems you like course @(CoursesList.First(x => x.ReferenceID == LikedCourseID).Name). We will make morse courses like this!</p>
+}
+
+<div class="courses-container">
+@foreach(var course in CoursesList)
+{
+    <CourseItem Name="@course.Name" 
+                Description="@course.Description"
+                ReferenceID="@course.ReferenceID"
+				OnLikeClicked="OnCourseLikeClicked"
+	/>
+}
+</div>
+
+@code {
+	private List<Course> CoursesList { get; set; } = new List<Course>();
+
+	public string LikedCourseID { get; set; }
+
+	protected async override Task OnInitializedAsync()
+	{
+		HttpClient httpClient = new HttpClient();
+		CoursesList = await httpClient.GetFromJsonAsync<List<Data.Course>>(""); //Insert valid API url
+
+		base.OnInitialized();
+	}
+
+	public void OnCourseLikeClicked(string refID)
+	{
+		this.LikedCourseID = refID;
+	}
+}

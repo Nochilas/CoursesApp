@@ -1,0 +1,9 @@
+﻿.courses-container{
+        display: grid;
+        gap: 20px;
+        grid-template-columns: repeat(auto-fit, 280px);
+    }
+
+@media screen and (max-width: 640px) {
+    /*TODO: deal with responsiveness*/
+}

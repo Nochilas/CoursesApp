@@ -1,0 +1,33 @@
+﻿@*HTML - CSS src: https://github.com/KamalRathnayake/BlazorCoursesApp/blob/episode/2-components-and-databinding/CoursesApp/Pages/Course/Course.razor*@
+
+<div>
+    <h2>Comments</h2>
+
+    @*Trying two way data binding*@
+    <textarea @bind="CommentText" @bind:event="oninput" class="form-control"></textarea>
+
+    <div style="display:block;padding-top:20px;padding-bottom:20px">
+        <button class="btn-primary btn-sm">Comment</button>
+        <button class="btn-default btn-sm">Clear</button>
+    </div>
+    <div>
+        <h5>You</h5>
+        <p>@CommentText</p>
+        <p>@Date</p>
+    </div>
+
+    @for (int i = 0; i < 3; i++)
+    {
+        <div>
+            <h5>John Doe</h5>
+            <p>Random Comment</p>
+            <p>@Date</p>
+        </div>
+    }
+</div>
+
+@code {
+    private DateTime Date { get; set; } = DateTime.Now;
+
+    public string CommentText { get; set; }
+}

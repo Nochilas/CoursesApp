@@ -1,0 +1,31 @@
+﻿<div class="course-list-item" style="margin-bottom:20px;">
+    <a href="@($"/courses/{ReferenceID}")">
+        <img src="https://static.gunnarpeipman.com/wp-content/uploads/2019/10/aspnet-core-featured.png" />
+    </a>
+    <h5><b>@Name</b></h5>
+    <p>@Description</p>
+	<div style="display:flex; flex-direction:row; gap:5px">
+		<button class="btn-sm form-control btn-primary" @onclick="LikeClicked">Like</button>
+		<button class="btn-sm form-control">Share</button>
+	</div>
+</div>
+
+@code {
+	[Parameter]
+	public string Name { get; set; }
+	[Parameter]
+	public string Description { get; set; }
+	[Parameter]
+	public string ReferenceID { get; set; }
+
+	//Trying event callback
+	//Src: https://www.youtube.com/watch?v=17qVoeidYQ0&list=PLhl73Ukl8yfRvROCj1k2cg41aikHafVHx&index=2
+	[Parameter]
+	public EventCallback<string> OnLikeClicked { get; set; }
+
+	public async Task LikeClicked()
+	{
+		Console.WriteLine("Clicked");
+		await this.OnLikeClicked.InvokeAsync(this.ReferenceID.ToString());
+	}
+}
